@@ -1,8 +1,8 @@
 # K8s - CKAD - The Easy Way
 Tips and Tricks on Kubernetes
 
-Tables of Contents
-==================
+Table of Contents
+=================
 
    * [K8s - CKAD - The Easy Way](#k8s---ckad---the-easy-way)
    * [Tables of Contents](#tables-of-contents)
@@ -22,14 +22,22 @@ Tables of Contents
             * [policy/v1beta1](#policyv1beta1)
             * [rbac.authorization.k8s.io/v1](#rbacauthorizationk8siov1)
       * [Commands](#commands)
+         * [Get list of contexts](#get-list-of-contexts)
          * [Switch clusters](#switch-clusters)
          * [Set Namespace for all commands](#set-namespace-for-all-commands)
          * [Get resources](#get-resources)
+         * [Understanding YAML](#understanding-yaml)
+            * [Selectors](#selectors)
+               * [Equality Based Selectors (Replication Controller) [Old way]](#equality-based-selectors-replication-controller-old-way)
+               * [Set Based Selectors (ReplicatSet) [New way]](#set-based-selectors-replicatset-new-way)
+            * [MatchLabels](#matchlabels)
       * [Tricks](#tricks)
          * [AutoCompletion in BASH](#autocompletion-in-bash)
+         * [Set Aliases](#set-aliases)
       * [References](#references)
 
 Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
+
 ## Short Names for Resources
 Short name	| Full name
 -----       | -----
