@@ -5,7 +5,7 @@ Table of Contents
 =================
 
    * [K8s - CKAD - The Easy Way](#k8s---ckad---the-easy-way)
-   * [Tables of Contents](#tables-of-contents)
+   * [Table of Contents](#table-of-contents)
       * [Short Names for Resources](#short-names-for-resources)
       * [Which apiVersion should I use?](#which-apiversion-should-i-use)
          * [What does each apiVersion mean?](#what-does-each-apiversion-mean)
@@ -26,10 +26,10 @@ Table of Contents
          * [Switch clusters](#switch-clusters)
          * [Set Namespace for all commands](#set-namespace-for-all-commands)
          * [Get resources](#get-resources)
-         * [Understanding YAML](#understanding-yaml)
-            * [Selectors](#selectors)
-               * [Equality Based Selectors (Replication Controller) [Old way]](#equality-based-selectors-replication-controller-old-way)
-               * [Set Based Selectors (ReplicatSet) [New way]](#set-based-selectors-replicatset-new-way)
+      * [Understanding YAML](#understanding-yaml)
+         * [Selectors](#selectors)
+            * [Equality Based Selectors (Replication Controller) [Old way]](#equality-based-selectors-replication-controller-old-way)
+            * [Set Based Selectors (ReplicatSet) [New way]](#set-based-selectors-replicatset-new-way)
             * [MatchLabels](#matchlabels)
       * [Tricks](#tricks)
          * [AutoCompletion in BASH](#autocompletion-in-bash)
