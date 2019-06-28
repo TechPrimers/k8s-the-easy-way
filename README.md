@@ -145,6 +145,35 @@ kubectl config get-contexts                          # display list of contexts
 ### Get resources
 `kubectl -n <namespace> get <resource_name>`
 
+### Understanding YAML
+#### Selectors
+##### Equality Based Selectors (Replication Controller) [Old way]
+- Works on `=`, `==`, and `!=`
+- Easy to understand but less powerful
+Command: `kubectl get pods -l environment=production`
+```
+...
+selector:
+  environment: production
+  tier: frontend
+```
+
+##### Set Based Selectors (ReplicatSet) [New way]
+- Works on `in`, `notin` and `exists`
+- Complex to understand but very powerful
+Command: `kubectl get pods -l 'environment in (production)'
+```
+...
+selector:
+  matchExpressions:
+    - {key: environment, operator: In, values: [prod, qa]}
+    - {key: tier, operator: NotIn, values: [frontend, backend]}
+```
+
+#### MatchLabels
+- `ReplicationControllers` and `Services` doesnt support `matchLabels` under selectors [Old resources]
+- `Deployments`, `ReplicaSet`, `Jobs` and `DaemonSet` supports `matchLabels` under selectors [New resources]
+
 ## Tricks
 ### AutoCompletion in BASH
 ```
