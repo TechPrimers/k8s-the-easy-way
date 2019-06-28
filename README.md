@@ -27,6 +27,7 @@ Tables of Contents
          * [Get resources](#get-resources)
       * [Tricks](#tricks)
          * [AutoCompletion in BASH](#autocompletion-in-bash)
+      * [References](#references)
 
 Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 ## Short Names for Resources
@@ -150,4 +151,7 @@ kubectl config get-contexts                          # display list of contexts
 source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell`.
 ```
+
+## References
+- [kubectl cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 
