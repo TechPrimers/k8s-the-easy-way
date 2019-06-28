@@ -1,4 +1,4 @@
-# k8s The Easy Way
+# K8s - CKAD - The Easy Way
 Tips and Tricks on Kubernetes
 
 Tables of Contents
