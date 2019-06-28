@@ -3,10 +3,31 @@ Tips and Tricks on Kubernetes
 
 Tables of Contents
 ==================
-- [Short Names for Resources](#short-names-for-resources)
-- [Commands](#commands)
-- [Tricks](#tricks)
 
+   * [K8s - CKAD - The Easy Way](#k8s---ckad---the-easy-way)
+   * [Tables of Contents](#tables-of-contents)
+      * [Short Names for Resources](#short-names-for-resources)
+      * [Which apiVersion should I use?](#which-apiversion-should-i-use)
+         * [What does each apiVersion mean?](#what-does-each-apiversion-mean)
+            * [alpha](#alpha)
+            * [beta](#beta)
+            * [stable](#stable)
+            * [v1](#v1)
+            * [apps/v1](#appsv1)
+            * [autoscaling/v1](#autoscalingv1)
+            * [batch/v1](#batchv1)
+            * [batch/v1beta1](#batchv1beta1)
+            * [certificates.k8s.io/v1beta1](#certificatesk8siov1beta1)
+            * [extensions/v1beta1](#extensionsv1beta1)
+            * [policy/v1beta1](#policyv1beta1)
+            * [rbac.authorization.k8s.io/v1](#rbacauthorizationk8siov1)
+      * [Commands](#commands)
+         * [Switch clusters](#switch-clusters)
+         * [Set Namespace for all commands](#set-namespace-for-all-commands)
+         * [Get resources](#get-resources)
+      * [Tricks](#tricks)
+
+Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 ## Short Names for Resources
 Short name	| Full name
 -----       | -----
@@ -120,6 +141,7 @@ This apiVersion includes extra functionality for Kubernetes role-based access co
 `kubectl -n <namespace> get <resource_name>`
 
 ## Tricks
+### AutoCompletion in BASH
 ```
 source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell`.
