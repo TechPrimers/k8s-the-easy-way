@@ -132,6 +132,9 @@ This apiVersion adds the ability to set a pod disruption budget and new rules ar
 This apiVersion includes extra functionality for Kubernetes role-based access control. This helps you to secure your cluster. Check out the official blog post.
 
 ## Commands
+### Get list of contexts
+kubectl config get-contexts                          # display list of contexts
+
 ### Switch clusters
 `kubectl config use-context <cluster_name>`
 
