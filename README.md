@@ -26,6 +26,7 @@ Tables of Contents
          * [Set Namespace for all commands](#set-namespace-for-all-commands)
          * [Get resources](#get-resources)
       * [Tricks](#tricks)
+         * [AutoCompletion in BASH](#autocompletion-in-bash)
 
 Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 ## Short Names for Resources
