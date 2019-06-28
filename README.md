@@ -152,6 +152,12 @@ source <(kubectl completion bash) # setup autocomplete in bash into the current 
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell`.
 ```
 
+### Set Aliases 
+```
+alias k=kubectl
+k get pod
+```
+
 ## References
 - [kubectl cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 
