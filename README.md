@@ -148,7 +148,10 @@ This apiVersion includes extra functionality for Kubernetes role-based access co
 `kubectl config use-context <cluster_name>`
 
 ### Set Namespace for all commands
-`kubectl config set-context --current --namespace=ggckad-s2 # permanently save the namespace for all subsequent kubectl commands in that context.`
+```
+# permanently save the namespace for all subsequent kubectl commands in that context.
+kubectl config set-context --current --namespace=<namespace_name>`
+```
 
 ### Get resources
 `kubectl -n <namespace> get <resource_name>`
@@ -194,8 +197,10 @@ selector:
 ## Tricks
 ### AutoCompletion in BASH
 ```
-source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
-echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell`.
+# setup autocomplete in bash into the current shell, bash-completion package should be installed first.
+source <(kubectl completion bash) 
+# add autocomplete permanently to your bash shell`.
+echo "source <(kubectl completion bash)" >> ~/.bashrc 
 ```
 
 ### Set Aliases 
