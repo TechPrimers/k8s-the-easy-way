@@ -153,6 +153,15 @@ kubectl config get-contexts                          # display list of contexts
 ### Get resources
 `kubectl -n <namespace> get <resource_name>`
 
+### Cluster info
+```
+> kubectl cluster-info
+Kubernetes master is running at https://192.168.64.6:8443
+KubeDNS is running at https://192.168.64.6:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+```
+
 ## Understanding YAML
 ### Selectors
 #### Equality Based Selectors (Replication Controller) [Old way]
