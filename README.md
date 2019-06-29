@@ -206,6 +206,21 @@ selector:
 - `ReplicationControllers` and `Services` doesnt support `matchLabels` under selectors [Old resources]
 - `Deployments`, `ReplicaSet`, `Jobs` and `DaemonSet` supports `matchLabels` under selectors [New resources]
 
+### Health Checks
+#### Readiness Probe
+```
+...
+readinessProbe:
+  httpGet:
+    path: /readiness
+    port: 81
+    scheme: HTTP
+    initialDelaySeconds: 5
+    timeoutSeconds: 1
+```
+
+#### Liveness Probe
+
 ## Tricks
 ### AutoCompletion in BASH
 ```
