@@ -156,6 +156,18 @@ kubectl config set-context --current --namespace=<namespace_name>`
 ### Get resources
 `kubectl -n <namespace> get <resource_name>`
 
+### Login to pod
+```
+> kubectl exec <pod_name> --stdin --tty -c <container_name> /bin/sh
+Eg:
+> kubectl exec nginx-59577d796b-2fsv5 --stdin --tty -c nginx /bin/sh
+# ps -ef | grep nginx
+root         1     0  0 17:39 ?        00:00:00 nginx: master process nginx -g daemon off;
+nginx        6     1  0 17:39 ?        00:00:00 nginx: worker process
+root        15     7  0 17:55 pts/0    00:00:00 grep nginx
+# 
+```
+
 ### Cluster info
 ```
 > kubectl cluster-info
