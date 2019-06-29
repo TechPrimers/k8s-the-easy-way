@@ -142,7 +142,7 @@ This apiVersion includes extra functionality for Kubernetes role-based access co
 
 ## Commands
 ### Get list of contexts
-kubectl config get-contexts                          # display list of contexts
+`kubectl config get-contexts                          # display list of contexts`
 
 ### Switch clusters
 `kubectl config use-context <cluster_name>`
