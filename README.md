@@ -169,6 +169,8 @@ root        15     7  0 17:55 pts/0    00:00:00 grep nginx
 ```
 
 ### Access Pod - PortForward
+- Used for testing purpose in exposing a port in Pod.
+- For Production, use services.
 - 443 is the port running in the Container
 `kubectl port-forward <pod_name> 10443:443`
 
