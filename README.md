@@ -262,6 +262,7 @@ selector:
 
 ### Health Checks
 #### Readiness Probe
+Readiness probe is used to identify if the container is ready to accept traffic. In simple terms, it denotes if the Application is completely UP and ready for serving requests.
 ```
 ...
 readinessProbe:
@@ -274,6 +275,19 @@ readinessProbe:
 ```
 
 #### Liveness Probe
+If the liveness probe fails, the Pod will be restarted. This denotes that the health of the container is not good.
+```
+...
+spec:
+  containers:
+  - image: 'gcr.io/<project_name>/spring-boot-example:v1'
+    name: spring-boot-example
+    livenessProbe:
+      httpGet:
+        path: /actuator/keepalive
+        port: 8080
+      initialDelaySeconds: 15
+ ```
 
 ## Tricks
 ### AutoCompletion in BASH
