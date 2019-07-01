@@ -168,6 +168,58 @@ root        15     7  0 17:55 pts/0    00:00:00 grep nginx
 # 
 ```
 
+### Access Pod - PortForward
+- 443 is the port running in the Container
+`kubectl port-forward <pod_name> 10443:443`
+
+
+### Create Secret & ConfigMap
+```
+kubectl create secret generic tls-certs --from-file=<folder_name>
+kubectl create configmap nginx-proxy-config --from-file=<folder_name>/proxy.conf
+```
+
+### Create Volume Mounts
+```
+...
+spec:
+  template:
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.10
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: "nginx-proxy-conf"
+          mountPath: "/etc/nginx/conf.d"
+        - name: "tls-certs"
+          mountPath: "/etc/tls"
+```
+
+### Create Lifecyle
+#### PreStop
+```
+...
+spec:
+  template:
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.10
+        ports:
+        - containerPort: 80
+        lifecycle:
+          preStop: 
+            exec:
+              command: ["/usr/sbin/nginx/", "-s", "quit"]
+        volumeMounts:
+        - name: "nginx-proxy-conf"
+          mountPath: "/etc/nginx/conf.d"
+        - name: "tls-certs"
+          mountPath: "/etc/tls"
+```
+
 ### Cluster info
 ```
 > kubectl cluster-info
