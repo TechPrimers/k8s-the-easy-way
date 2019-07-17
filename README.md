@@ -310,371 +310,530 @@ k get pod
 
 ## Scratch Pad
 ```
- 1004  k run nginx1 --image=nginx --restart=Never -l app=v1
- 1005  k run nginx2 --image=nginx --restart=Never -l app=v1
- 1006  k run nginx3 --image=nginx --restart=Never -l app=v1
- 1007  k get po
- 1008  k get po -o wide
- 1009  k get po --labels
- 1010  k get po --show-labels
- 1011  k get po --label-columns
- 1012  k get po --label-column
- 1013  k get po --label-columns=app
- 1014  k edit label
- 1015  k edit -h
- 1016  k edit po nginx2
- 1017  k get po --show-labels
- 1018  k label po -h
- 1019  history
- 1020  k label po nginx2 app=v2 --override
- 1021  k label po nginx2 app=v2 --overwrite
- 1024  k get po --label-columns=app
- 1025  k get po -L app
- 1026  k get po -L app=v2
- 1027  k get po -h
- 1028  k get po -l app=v2
- 1029  k get po -l 'app in (v1, v2)'
- 1030  k get po -l 'app in (v2)'
- 1031  c
- 1032  k label po -h
- 1033  k label pods app-
- 1034  k label pods app- --all
- 1035  k get po
- 1036  k get po --show-labels
- 1037  kubectl label po -lapp app-
- 1038  kubectl label po nginx{1..3} app-
- 1039  kubectl label po nginx1 nginx2 nginx3 app-
- 1040  c
- 1041  k run -h
- 1042  k run -h | grep label
- 1043  k get no -h
- 1044  k get no -h | grep label
- 1045  k get no --show-labels
- 1046  k run nginx --image=nginx --restart=Never --field-selector accelerator=nvidia-tesla-p100
- 1047  k explain po.spec | grep node
- 1048  k run nginx --image=nginx --restart=Never --dry-run -o yaml > pod-selector.yml
- 1049  vi pod-selector.yml
- 1050  k create -f pod-selector.yml
- 1051  k get po -w
- 1052  k annotate -h
- 1053  k annotate pods nginx1 nginx2 nginx3 description='mydescription'
- 1054  k describe pods nginx1
- 1056  k describe po nginx1 | grep -i 'annotations'
- 1057  k describe po nginx1 -o jsonpath='{.metadata.Annotations}'
- 1058  k describe po nginx1 -o jsonpath='{.metadata.annotations}'
- 1059  k annotate -h
- 1060  k annotate po nginx1 nginx2 nginx3 description-
- 1061  k describe po nginx1 | grep -i 'annotations'
- 1062  k delete po nginx nginx1 nginx2 nginx3
- 1063  k run nginx --image=nginx:1.7.8 --replicas=2 --port=80 --dry-run -o yaml
- 1064  k run nginx --image=nginx:1.7.8 --replicas=2 --port=80 --dry-run -o yaml > deployment.yml
- 1065  k create -f deployment.yml
- 1066  k get de -w
- 1067  k get do -w
- 1068  k get deploy -w
- 1069  k get all
- 1070  kubectl create deployment nginx  --image=nginx:1.7.8  --dry-run -o yaml
- 1071  k describe deploy nginx -o yaml
- 1072  k get deploy nginx -o yaml
- 1073  k get deploy nginx -o yaml --export
- 1074  c
- 1075  k get rs nginx
- 1076  k get all
- 1077  k get rs nginx-587746989d -o yaml
- 1078  k get rs nginx-587746989d -o yaml  --export
- 1079  k get rs -l run=nginx
- 1080  k get pods
- 1081  k get po nginx-587746989d-4rbmb -o yaml --expor
- 1082  k get po nginx-587746989d-4rbmb -o yaml --export
- 1083  c
- 1084  k rollout deployment nginx
- 1085  k rollout status deployment nginx
- 1086  k rollout -h
- 1087  k set image -h
- 1088  k set image deploy nginx nginx=nginx:1.7.9
- 1089  k describe deploy nginx
- 1090  k rollout history deploy nginx
- 1091  k get rs nginx
- 1092  k get rs
- 1093  k get po
- 1094  k get deploy
- 1095  k rollout undo deploy nginx
- 1096  k get po -w
- 1097  k describe deploy nginx
- 1098  k set image deploy nginx nginx=nginx:1.91
- 1099  k get all
- 1100  k get po -w
- 1101  k rollout status deploy nginx
- 1102  k history deploy nginx
- 1103  k rollout history deploy nginx
- 1104  k rollout -h
- 1105  k rollout deploy -h
- 1106  k rollout undo -h
- 1107  k rollout undo --to-revision=2
- 1108  k rollout undo deploy nginx --to-revision=2
- 1109  k get po -w
- 1110  k rollout status deploy nginx
- 1111  k describe deploy nginx| grep -i 'Image'
- 1112  k rollout -h
- 1113  k rollout history deploy nginx -h
- 1114  k rollout history deploy nginx --revision=3
- 1115  k scale deploy nginx -h
- 1116  k scale deploy nginx --replicas=5
- 1117  k get po -w
- 1118  k scale deploy -h
- 1119  k autoscale
- 1120  k autoscale -h
- 1121  c
- 1122  history
- 1123  c
- 1124  k autoscale -h
- 1125  k autoscale deploy nginx --min=5 --max=10 --cpu-percent=80
- 1126  k describe deploy nginx
- 1127  k describe rs
- 1128  k rollout pause deploy nginx
- 1129  k set image deploy nginx nginx=nginx:1.9.1
- 1130  k rollout status deploy nginx
- 1131  k rollout history deploy nginx
- 1132  k rollout resume deploy nginx
- 1133  k rollout status deploy nginx
- 1134  k get po
- 1135  k rollout history deploy nginx
- 1136  k rollout history deploy nginx --revision=6
- 1137  k get all
- 1138  k delete deploy nginx
- 1139  k getl all
- 1140  k get all
- 1141  k delete hps -h
- 1142  k get hpa
- 1143  k delete hpa nginx
- 1144  k get all
- 1147  k run perl -h
- 1148  k run perl --restart=OnFailure -c "perl -Mbignum=bpi -wle 'print bpi(2000)'"
- 1149  k run perl --restart=OnFailure --image=perl --command "perl -Mbignum=bpi -wle 'print bpi(2000)'" --dry-run -o yaml
- 1150  k run perl --restart=OnFailure --image=perl --command "perl -Mbignum=bpi -wle 'print bpi(2000)'"
- 1151  k get all
- 1152  k rollout batch perl
- 1153  k rollout -h
- 1154  k get all
- 1155  k logs perl
- 1156  k logs perl-62hgp
- 1157  k get all
- 1158  k delete job perl
- 1159  k get all
- 1160  k create job perl --image=perl -- "perl -Mbignum=bpi -wle 'print bpi(2000)'"
- 1161  k get all
- 1162  k get po
- 1163  k get po -w
- 1164  k delete job perl
- 1165  k create job pi --image=perl -- "perl -Mbignum=bpi -wle 'print bpi(2000)'"
- 1166  k get po -w
- 1167  k get all
- 1168  k delete job pi
- 1169  k create job pi --image=perl -- perl -Mbignum=bpi -wle 'print bpi(2000)'
- 1170  k get po -w
- 1171  k logs pi-whrqr
- 1172  k get all
- 1173  k delete job pi
- 1174  k get all
- 1175  c
- 1176  k create job bb --image=busybox -- echo hello;sleep 30;echo world
- 1177  k get po -w
- 1178  k logs bb-6v4cj
- 1179  k logs bb-6v4cj -f
- 1180  k get job
- 1181  k get all
- 1182  k job
- 1183  k get job -o wide
- 1184  k describe job bb
- 1185  k logs job/bb
- 1186  k get jobs
- 1187  k delete job bb
- 1188  k create job -h
- 1189  k explain job.spec
- 1190  k create job bb image=busybox --dry-run -o yaml
- 1191  k create job bb --image=busybox --dry-run -o yaml
- 1192  k create job bb --image=busybox --dry-run -o yaml > job.yaml
- 1193  k explain job.spec
- 1194  vi job.yaml
- 1195  k create -f job.yaml
- 1196  k get all
- 1197  vi job.yaml
- 1198  k apply -f job.yaml
- 1199  k get all
- 1200  k delete job bb
- 1201  k create -f job.yaml
- 1202  k get all
- 1203  k get job
- 1204  k create job -h
- 1205  k create cronjob -h
- 1206  k create job -h
- 1207  k run busybox --restart=OnFailure -h
- 1208  k run busybox --restart=OnFailure --schedule='*/1 * * * *' --image=busybox -- /bin/sh -c 'date; echo Hello from the Kubernetes cluster'
- 1209  k get job
- 1210  k get all
- 1211  k get cronjob
- 1212  k logs cronjob/busybox
- 1213  k get cronjob
- 1214  k run busybox2 --restart=OnFailure --schedule="*/1 * * * *" --image=busybox -- /bin/sh -c 'date; echo Hello from the Kubernetes cluster'
- 1215  k get cronjob
- 1216  k logs cronjob/busybox
- 1217  k get all
- 1218  k logs cronjob/busybox
- 1219  k logs cronjob/busybox2
- 1220  k logs cronjob/busybox -f
- 1221  k get jobs -w
- 1222  k logs pod/busybox2-1563334860-5dnl8
- 1223  k logs pod/busybox-1563334800-5jts2
- 1224  k get po --show-labels
- 1225  k delete cj busybox
- 1226  k delete cj busybox2
- 
- 1008  k create configmap config --from-literal=foo=lala --from-literal=foo2=lolo
- 1009  k get cm
- 1010  k get cm -o wide
- 1011  k get all
- 1012  k describe cm config
- 1013  k get cm config
- 1014  k get cm config -o yaml
- 1015  k get cm config -o yaml --export
- 1016  c
- 1017  k create configmap -h
- 1018  c
- 1019  echo -e "foo3=lili\nfoo4=lele" > config.txt
- 1020  k create configmap config-file --from-file=./config.txt
- 1021  k describe cm config-file
- 1022  k get cm config-file -o yaml
- 1023  k get cm config-file -o yaml --export
- 1024  c
- 1025  echo -e "var1=val1\n# this is a comment\n\nvar2=val2\n#anothercomment" > config.env
- 1026  k create cm -h
- 1027  c
- 1028  k create cm config-env-file --from-env-file=./config.env
- 1029  k get cm config-env-file
- 1030  k get cm config-env-file -o yaml
- 1031  k get cm config-env-file -o yaml --export
- 1032  echo -e "var3=val3\nvar4=val4" > config4.txt
- 1033  k create cm config4 --from-file ./config4.txt
- 1034  k get cm config4 -o yaml --export
- 1035  c
- 1036  k get cm config4 -o yaml --export
- 1037  k get cm config4 -o yaml --export > config-map-key.yml
- 1038  vi config
- 1039  vi config-map-key.yml
- 1040  k explain configmap.spec
- 1041  k explain configmap
- 1042  k explain configmap.metadata
- 1043  k explain configmap --recursive | grep key
- 1044  k explain configmap --recursive | grep generator
- 1045  k explain configmap --recursive | grep -i generator
- 1046  c
- 1047  k create cm config5 --from-file=special=./config4.txt -o yaml --dry-run
- 1048  k create cm options --from-literal=var5=val5
- 1049  k describe cm options
- 1050  k run nginx --image=nginx --restart=Never -h
- 1051  c
- 1052  k run nginx --image=nginx --restart=Never --dry-run -o yaml > config-pod.yml
- 1053  vi config
- 1054  vi config-pod.yml
- 1055  k create -f config-pod.yml
- 1056  vi config-pod.yml
- 1057  k create -f config-pod.yml
- 1058  k describe po nginx
- 1059  k exec nginx -- env
- 1060  k create configmap env:
- 1061  c
- 1062  k create configmap anotherone --from-literal=var6=val6 --from-literal=var7=val7
- 1063  k run nginx2 --image=nginx --restart=Never --dry-run -o yaml > pod-config2.yml
- 1064  vi pod-config2.yml
- 1065  k create -f pod-config2.yml
- 1066  k describe po nginx2
- 1067  k exec nginx2 -- env
- 1068  k create cm cmvolume --from-literal var8=val8 var9=val9
- 1069  k create cm cmvolume --from-literal var8=val8 --from-literal var9=val9
- 1070  k run nginx3 --image=nginx --restart=Never --dry-run -o yaml -- /bin/sh 'ls /etc/lala'
- 1071  k run nginx3 --image=nginx --restart=Never --dry-run -o yaml -- /bin/sh 'ls /etc/lala' > nginx3.yml
- 1072  vi nginx3.yml
- 1073  k create -f nginx3.yml
- 1074  k logs nginx3
- 1075  k describe nginx3
- 1076  k describe po nginx3
- 1077  k logs nginx3
- 1078  k exec nginx3 -- ls /etc/lala
- 1079  vi nginx3.yml
- 1080  k delete po nginx3
- 1081  k create -f nginx3.yml
- 1082  vi nginx3.yml
- 1083  k create -f nginx3.yml
- 1084  vi nginx3.yml
- 1085  k create -f nginx3.yml
- 1086  vi nginx3.yml
- 1087  k create -f nginx3.yml
- 1088  vi nginx3.yml
- 1089  c
- 1090  k run nginx -h
- 1091  k run nginx -h | grep UID
- 1092  k run nginx -h | grep -i UID
- 1093  k run nginx --restart=Never --image=nginx --dry-run -o yaml
- 1094  k run nginx --=h
- 1095  k run nginx --restart=Never --requests cpu=100m,memory=256Mi --limits cpu=200m,memory=512Mi --dry-run -o yaml
- 1096  k run nginx --restart=Never --requests cpu=100m,memory=256Mi --limits cpu=200m,memory=512Mi --image=nginx --dry-run -o yaml
- 1097  k run nginx --restart=Never --requests cpu=100m,memory=256Mi --limits cpu=200m,memory=512Mi --image=nginx
- 1098  k run nginx7 --restart=Never --requests cpu=100m,memory=256Mi --limits cpu=200m,memory=512Mi --image=nginx
- 1099  k describe nginx7
- 1100  k describe po nginx7
- 1101  c
- 1102  k get all
- 1103  k delete po nginx nginx2 nginx7
- 1104  c
- 1105  k create secret -h
- 1106  k create secret generic -j
- 1107  k create secret generic --from-literal password=mypass
- 1108  k create secret generic --from-literal=password=mypass
- 1109  k create secret generic --from-literal password=mypass
- 1110  k create secret generic mysecret --from-literal password=mypass
- 1111  k get secret
- 1112  k describe secret mysecret
- 1113  echo admin > username
- 1114  k create secret generic mysecret2 -h
- 1115  k create secret generic mysecret2 --from-file ./username
- 1116  k describe secret mysecret2
- 1117  k get secret mysecret2
- 1118  k get secret mysecret2 -o yaml
- 1119  k get secret mysecret2 -o yaml --export
- 1120  k get secret mysecret2 -o yaml --export | cut -f :
- 1121  cut help
- 1122  cut --help
- 1123  k get secret mysecret2 -o yaml --export | grep username| cut -f 2
- 1124  k get secret mysecret2 -o yaml --export | grep username| cut -f 2 ':'
- 1125  k get secret mysecret2 -o yaml --export | grep username| cut ':' -f 2
- 1126  k get secret mysecret2 -o yaml --export | grep username| cut  -f 2 -d ':'
- 1127  k get secret mysecret2 -o yaml --export | grep username| cut -f 2 -d ':' | cut -d ' '
- 1128  k get secret mysecret2 -o yaml --export | grep username| cut -f 2 -d ':' | cut -d ' ' -f 2
- 1129  k get secret mysecret2 -o yaml --export | grep username| cut -f 2 -d ':' | cut -d ' ' -f 2 | base64
- 1130  k get secret mysecret2 -o yaml --export | grep username| cut -f 2 -d ':' | cut -d ' ' -f 2 | base64 -d
- 1131  kubectl get secret mysecret2 -o jsonpath='{.data.username}{"\n"}'
- 1132  vi pod-secret.yml
- 1133  k create -f pod-secret.yml
- 1134  k exec secret-test-pod -it -- /bin/bash
- 1135  k get po
- 1136  k delete po secret-test-po
- 1137  k delete po secret-test-pod
- 1138  vi pod-secret.yml
- 1139  k create -f pod-se
- 1140  k create -f pod-secret.yml
- 1141  k describe po secret-test-pod
- 1142  k get po
- 1143  k exec secret-text-po -it -- /bin.bash
- 1144  k exec secret-text-pod -it -- /bin/bash
- 1145  k exec secret-test-pod -it -- /bin/bash
- 1146  c
- 1147  k get sa --all-namespaces
- 1149  k create sa myuser
- 1150  k describe sa myuser
- 1151  k run nginx --image=nginx --restart=Never --serviceaccount
- 1152  k run nginx --image=nginx --restart=Never --serviceaccount=myuser --dry-run -o yaml
- 1153  k run nginx --image=nginx --restart=Never --serviceaccount=myuser
- 1154  k describe po nginx | grep service
 
+k run nginx1 --image=nginx --restart=Never -l app=v1
+k run nginx2 --image=nginx --restart=Never -l app=v1
+k run nginx3 --image=nginx --restart=Never -l app=v1
+k get po
+k get po -o wide
+k get po --labels
+k get po --show-labels
+k get po --label-columns
+k get po --label-column
+k get po --label-columns=app
+k edit label
+k edit -h
+k edit po nginx2
+k get po --show-labels
+k label po -h
+history
+k label po nginx2 app=v2 --override
+k label po nginx2 app=v2 --overwrite
+k get po --label-columns=app
+k get po -L app
+k get po -L app=v2
+k get po -h
+k get po -l app=v2
+k get po -l 'app in (v1, v2)'
+k get po -l 'app in (v2)'
+c
+k label po -h
+k label pods app-
+k label pods app- --all
+k get po
+k get po --show-labels
+kubectl label po -lapp app-
+kubectl label po nginx{1..3} app-
+kubectl label po nginx1 nginx2 nginx3 app-
+c
+k run -h
+k run -h | grep label
+k get no -h
+k get no -h | grep label
+k get no --show-labels
+k run nginx --image=nginx --restart=Never --field-selector accelerator=nvidia-tesla-p100
+k explain po.spec | grep node
+k run nginx --image=nginx --restart=Never --dry-run -o yaml > pod-selector.yml
+vi pod-selector.yml
+k create -f pod-selector.yml
+k get po -w
+k annotate -h
+k annotate pods nginx1 nginx2 nginx3 description='mydescription'
+k describe pods nginx1
+k describe po nginx1 | grep -i 'annotations'
+k describe po nginx1 -o jsonpath='{.metadata.Annotations}'
+k describe po nginx1 -o jsonpath='{.metadata.annotations}'
+k annotate -h
+k annotate po nginx1 nginx2 nginx3 description-
+k describe po nginx1 | grep -i 'annotations'
+k delete po nginx nginx1 nginx2 nginx3
+k run nginx --image=nginx:1.7.8 --replicas=2 --port=80 --dry-run -o yaml
+k run nginx --image=nginx:1.7.8 --replicas=2 --port=80 --dry-run -o yaml > deployment.yml
+k create -f deployment.yml
+k get de -w
+k get do -w
+k get deploy -w
+k get all
+kubectl create deployment nginx  --image=nginx:1.7.8  --dry-run -o yaml
+k describe deploy nginx -o yaml
+k get deploy nginx -o yaml
+k get deploy nginx -o yaml --export
+c
+k get rs nginx
+k get all
+k get rs nginx-587746989d -o yaml
+k get rs nginx-587746989d -o yaml  --export
+k get rs -l run=nginx
+k get pods
+k get po nginx-587746989d-4rbmb -o yaml --expor
+k get po nginx-587746989d-4rbmb -o yaml --export
+c
+k rollout deployment nginx
+k rollout status deployment nginx
+k rollout -h
+k set image -h
+k set image deploy nginx nginx=nginx:1.7.9
+k describe deploy nginx
+k rollout history deploy nginx
+k get rs nginx
+k get rs
+k get po
+k get deploy
+k rollout undo deploy nginx
+k get po -w
+k describe deploy nginx
+k set image deploy nginx nginx=nginx:1.91
+k get all
+k get po -w
+k rollout status deploy nginx
+k history deploy nginx
+k rollout history deploy nginx
+k rollout -h
+k rollout deploy -h
+k rollout undo -h
+k rollout undo --to-revision=2
+k rollout undo deploy nginx --to-revision=2
+k get po -w
+k rollout status deploy nginx
+k describe deploy nginx| grep -i 'Image'
+k rollout -h
+k rollout history deploy nginx -h
+k rollout history deploy nginx --revision=3
+k scale deploy nginx -h
+k scale deploy nginx --replicas=5
+k get po -w
+k scale deploy -h
+k autoscale
+k autoscale -h
+c
+history
+c
+k autoscale -h
+k autoscale deploy nginx --min=5 --max=10 --cpu-percent=80
+k describe deploy nginx
+k describe rs
+k rollout pause deploy nginx
+k set image deploy nginx nginx=nginx:1.9.1
+k rollout status deploy nginx
+k rollout history deploy nginx
+k rollout resume deploy nginx
+k rollout status deploy nginx
+k get po
+k rollout history deploy nginx
+k rollout history deploy nginx --revision=6
+k get all
+k delete deploy nginx
+k getl all
+k get all
+k delete hps -h
+k get hpa
+k delete hpa nginx
+k get all
+k run perl -h
+k run perl --restart=OnFailure -c "perl -Mbignum=bpi -wle 'print bpi(2000)'"
+k run perl --restart=OnFailure --image=perl --command "perl -Mbignum=bpi -wle 'print bpi(2000)'" --dry-run -o yaml
+k run perl --restart=OnFailure --image=perl --command "perl -Mbignum=bpi -wle 'print bpi(2000)'"
+k get all
+k rollout batch perl
+k rollout -h
+k get all
+k logs perl
+k logs perl-62hgp
+k get all
+k delete job perl
+k get all
+k create job perl --image=perl -- "perl -Mbignum=bpi -wle 'print bpi(2000)'"
+k get all
+k get po
+k get po -w
+k delete job perl
+k create job pi --image=perl -- "perl -Mbignum=bpi -wle 'print bpi(2000)'"
+k get po -w
+k get all
+k delete job pi
+k create job pi --image=perl -- perl -Mbignum=bpi -wle 'print bpi(2000)'
+k get po -w
+k logs pi-whrqr
+k get all
+k delete job pi
+k get all
+c
+k create job bb --image=busybox -- echo hello;sleep 30;echo world
+k get po -w
+k logs bb-6v4cj
+k logs bb-6v4cj -f
+k get job
+k get all
+k job
+k get job -o wide
+k describe job bb
+k logs job/bb
+k get jobs
+k delete job bb
+k create job -h
+k explain job.spec
+k create job bb image=busybox --dry-run -o yaml
+k create job bb --image=busybox --dry-run -o yaml
+k create job bb --image=busybox --dry-run -o yaml > job.yaml
+k explain job.spec
+vi job.yaml
+k create -f job.yaml
+k get all
+vi job.yaml
+k apply -f job.yaml
+k get all
+k delete job bb
+k create -f job.yaml
+k get all
+k get job
+k create job -h
+k create cronjob -h
+k create job -h
+k run busybox --restart=OnFailure -h
+k run busybox --restart=OnFailure --schedule='*/1 * * * *' --image=busybox -- /bin/sh -c 'date; echo Hello from the Kubernetes cluster'
+k get job
+k get all
+k get cronjob
+k logs cronjob/busybox
+k get cronjob
+k run busybox2 --restart=OnFailure --schedule="*/1 * * * *" --image=busybox -- /bin/sh -c 'date; echo Hello from the Kubernetes cluster'
+k get cronjob
+k logs cronjob/busybox
+k get all
+k logs cronjob/busybox
+k logs cronjob/busybox2
+k logs cronjob/busybox -f
+k get jobs -w
+k logs pod/busybox2-1563334860-5dnl8
+k logs pod/busybox-1563334800-5jts2
+k get po --show-labels
+k delete cj busybox
+k delete cj busybox2
+
+k create configmap config --from-literal=foo=lala --from-literal=foo2=lolo
+k get cm
+k get cm -o wide
+k get all
+k describe cm config
+k get cm config
+k get cm config -o yaml
+k get cm config -o yaml --export
+c
+k create configmap -h
+c
+echo -e "foo3=lili\nfoo4=lele" > config.txt
+k create configmap config-file --from-file=./config.txt
+k describe cm config-file
+k get cm config-file -o yaml
+k get cm config-file -o yaml --export
+c
+echo -e "var1=val1\n# this is a comment\n\nvar2=val2\n#anothercomment" > config.env
+k create cm -h
+c
+k create cm config-env-file --from-env-file=./config.env
+k get cm config-env-file
+k get cm config-env-file -o yaml
+k get cm config-env-file -o yaml --export
+echo -e "var3=val3\nvar4=val4" > config4.txt
+k create cm config4 --from-file ./config4.txt
+k get cm config4 -o yaml --export
+c
+k get cm config4 -o yaml --export
+k get cm config4 -o yaml --export > config-map-key.yml
+vi config
+vi config-map-key.yml
+k explain configmap.spec
+k explain configmap
+k explain configmap.metadata
+k explain configmap --recursive | grep key
+k explain configmap --recursive | grep generator
+k explain configmap --recursive | grep -i generator
+c
+k create cm config5 --from-file=special=./config4.txt -o yaml --dry-run
+k create cm options --from-literal=var5=val5
+k describe cm options
+k run nginx --image=nginx --restart=Never -h
+c
+k run nginx --image=nginx --restart=Never --dry-run -o yaml > config-pod.yml
+vi config
+vi config-pod.yml
+k create -f config-pod.yml
+vi config-pod.yml
+k create -f config-pod.yml
+k describe po nginx
+k exec nginx -- env
+k create configmap env:
+c
+k create configmap anotherone --from-literal=var6=val6 --from-literal=var7=val7
+k run nginx2 --image=nginx --restart=Never --dry-run -o yaml > pod-config2.yml
+vi pod-config2.yml
+k create -f pod-config2.yml
+k describe po nginx2
+k exec nginx2 -- env
+k create cm cmvolume --from-literal var8=val8 var9=val9
+k create cm cmvolume --from-literal var8=val8 --from-literal var9=val9
+k run nginx3 --image=nginx --restart=Never --dry-run -o yaml -- /bin/sh 'ls /etc/lala'
+k run nginx3 --image=nginx --restart=Never --dry-run -o yaml -- /bin/sh 'ls /etc/lala' > nginx3.yml
+vi nginx3.yml
+k create -f nginx3.yml
+k logs nginx3
+k describe nginx3
+k describe po nginx3
+k logs nginx3
+k exec nginx3 -- ls /etc/lala
+vi nginx3.yml
+k delete po nginx3
+k create -f nginx3.yml
+vi nginx3.yml
+k create -f nginx3.yml
+vi nginx3.yml
+k create -f nginx3.yml
+vi nginx3.yml
+k create -f nginx3.yml
+vi nginx3.yml
+c
+k run nginx -h
+k run nginx -h | grep UID
+k run nginx -h | grep -i UID
+k run nginx --restart=Never --image=nginx --dry-run -o yaml
+k run nginx --=h
+k run nginx --restart=Never --requests cpu=100m,memory=256Mi --limits cpu=200m,memory=512Mi --dry-run -o yaml
+k run nginx --restart=Never --requests cpu=100m,memory=256Mi --limits cpu=200m,memory=512Mi --image=nginx --dry-run -o yaml
+k run nginx --restart=Never --requests cpu=100m,memory=256Mi --limits cpu=200m,memory=512Mi --image=nginx
+k run nginx7 --restart=Never --requests cpu=100m,memory=256Mi --limits cpu=200m,memory=512Mi --image=nginx
+k describe nginx7
+k describe po nginx7
+c
+k get all
+k delete po nginx nginx2 nginx7
+c
+k create secret -h
+k create secret generic -j
+k create secret generic --from-literal password=mypass
+k create secret generic --from-literal=password=mypass
+k create secret generic --from-literal password=mypass
+k create secret generic mysecret --from-literal password=mypass
+k get secret
+k describe secret mysecret
+echo admin > username
+k create secret generic mysecret2 -h
+k create secret generic mysecret2 --from-file ./username
+k describe secret mysecret2
+k get secret mysecret2
+k get secret mysecret2 -o yaml
+k get secret mysecret2 -o yaml --export
+k get secret mysecret2 -o yaml --export | cut -f :
+cut help
+cut --help
+k get secret mysecret2 -o yaml --export | grep username| cut -f 2
+k get secret mysecret2 -o yaml --export | grep username| cut -f 2 ':'
+k get secret mysecret2 -o yaml --export | grep username| cut ':' -f 2
+k get secret mysecret2 -o yaml --export | grep username| cut  -f 2 -d ':'
+k get secret mysecret2 -o yaml --export | grep username| cut -f 2 -d ':' | cut -d ' '
+k get secret mysecret2 -o yaml --export | grep username| cut -f 2 -d ':' | cut -d ' ' -f 2
+k get secret mysecret2 -o yaml --export | grep username| cut -f 2 -d ':' | cut -d ' ' -f 2
+k get secret mysecret2 -o yaml --export | grep username| cut -f 2 -d ':' | cut -d ' ' -f 2
+kubectl get secret mysecret2 -o jsonpath='{.data.username}{"\n"}'
+vi pod-secret.yml
+k create -f pod-secret.yml
+k exec secret-test-pod -it -- /bin/bash
+k get po
+k delete po secret-test-po
+k delete po secret-test-pod
+vi pod-secret.yml
+k create -f pod-se
+k create -f pod-secret.yml
+k describe po secret-test-pod
+k get po
+k exec secret-text-po -it -- /bin.bash
+k exec secret-text-pod -it -- /bin/bash
+k exec secret-test-pod -it -- /bin/bash
+c
+k get sa --all-namespaces
+k create sa myuser
+k describe sa myuser
+k run nginx --image=nginx --restart=Never --serviceaccount
+k run nginx --image=nginx --restart=Never --serviceaccount=myuser --dry-run -o yaml
+k run nginx --image=nginx --restart=Never --serviceaccount=myuser
+k describe po nginx | grep service
+
+k cp bb:/etc/passwd ./passwd2
+vi passwd
+vi pass
+k exec bb -- /bin/sh -c 'cat /etc/passwd' > passwd
+k exec bb -- /bin/sh -c 'cat /etc/passwd'
+k run bb --image=busybox --restart=Never -- /bin/sh -c 'sleep 3600'
+k delete po busybox busybox1
+k exec busybox1 -it -- /bin/sh
+k create -f pvc-pod.yaml
+vi pvc-pod.yaml
+k exec busybox -it -- /bin/sh
+k describe po busybox
+vi pvc-pod.y
+k run busybox --restart=Never --image=busybox --dry-run -o yaml --command -- /bin/sh -c 'sleep 3600' > pvc-pod.yaml
+k delete po busybox
+vi pvc-pod.yml
+vi pv
+k run busybox --restart=Never --image=busybox -o yaml --command -- /bin/sh -c 'sleep 3600' > pvc-pod.yml
+k run busybox --restart=Never --image=busybox --command -- /bin/sh -c 'sleep 3600' > pvc-pod.yml
+k get pv
+k get pvc
+k describe pvc mypvc
+k create -f pvc.yaml
+vi pvc.yaml
+k describe pv myvolume
+k create -f pv.yaml
+vi pv.yaml
+k delete po bb
+k get po
+k exec bb -c bb1 -it -- /bin/sh -c 'cat /etc/foo/passwd'
+k exec bb -c bb1 -it -- /bin/sh
+k exec bb -c bb2 -it -- /bin/sh
+k create -f bb2.yaml
+vi bb2.yaml
+k run bb --image=busybox --restart=Never --dry-run -o yaml -- /bin/sh -c 'sleep 3600' > bb2.yaml
+vi bb
+k run bb --image=busybox --restart=Never --dry-run -o yaml > bb2.yaml
+k run bb --image=busybox --restart=Never --dry-run -o yaml
+k get all
+k delete po nginx3
+k exec nginx3 -it -- /bin/sh
+k exec nginx3 -- ls /etc/lala
+k exec nginx -- ls /etc/lala
+k describe po nginx3
+k create -f config-pod.yaml
+k delete pod nginx3
+k delete pod nginx2
+k delete pod nginx1
+k delete pod nginx{1..3}
+vi config-pod.yaml
+k run nginx3 --restart=Never --image=nginx --dry-run -o yaml> config-pod.yaml
+k run nginx3 --restart=Never --image=nginx --dry-run -o yaml
+k create cm cmvolume --from-literal var8=val8 --from-literal var9=val9
+k create cm config5 --from-file=special=./config4.txt -o yaml --dry-run
+k get cm config4 -o yaml
+k get cm config4
+k get cm confi4
+k create -f config4.yml
+vi config4.yml
+k create cm config4 --from-file=./config4.txt --dry-run -o yaml > config4.yml
+ls
+pwd
+k create cm config4 --from-file=./config4.txt --dry-run -o yaml
+echo -e "var3=val3\nvar4=val4" > config4.txt
+minikube start
+minikube status
+export PS1="[\u@\h \W]\$ " ;clear;
+exit
+minikube stop
+k get po -o wide
+k delete pod nginx
+k run nginx1 --image=nginx --restart=Never --labels=app=v1
+k run nginx3 --image=nginx --restart=Never --labels=app=v1
+k run nginx2 --image=nginx --restart=Never --labels=app=v1
+k run nginx --image=nginx --restart=Never --labels=app=v1
+minikube delete
+k describe po nginx
+k exec nginx -it sh
+k run nginx --image=nginx --restart=Never --env="var1=val1"
+k run bb1 --restart=Never --image=busybox -it --rm --command -- echo 'Hello World'
+k run busybox1 --restart=Never --image=busybox --rm --command -- echo 'Hello World'
+k logs busybox
+k get po busybox -w
+k get po busybox
+k run busybox --restart=Never --image=busybox --command -- echo 'Hello World'
+k delete pod busybox
+k logs pod/nginx -p
+k logs pod/nginx
+k get po nginx -o yaml --export
+k get po nginx -o yaml -h
+k get po nginx -o yaml
+k get po nginx -o jsonpath='{.status.podIP}'
+k get po nginx --jsonpath='.status.PodIP'
+k run bb --image=busybox --restart=Never --rm -it -- /bin/sh
+k get po -w
+kubectl set image pod/nginx nginx=nginx:1.7.1
+k set image po nginx nginx=nginx:1.7.1
+k apply -f try4.yml
+vi try4.yml
+k run nginx --image=nginx --restart=Never --port=80 -o yaml --dry-run > try4.yml
+k describe po nginx -o yaml
+k edit po -h
+k edit po nginx --image=nginx:.7.1
+k run nginx --image=nginx --restart=Never --port=80
+k run nginx --image=nginx --restart=Never --port=80 -o yaml --dry-run
+k delete pod nginx -n mynamespace
+k get po --all-namespaces
+k create quota myrq --dry-run -o yaml --hard=cpu=1,memory=1G,pods=2 > try3.yml
+k create quota myrq --dry-run -o yaml --hard=cpu=1,memory=1G,pods=2
+k create quota myrq --dry-run -o yaml
+k create quota -h
+k create resourcequota
+k create namespace myns --dry-run -o yaml > try3.yml
+k create namespace myns --dry-run -o yaml
+k get pod -w
+k create -f try2.yml
+k run busybox --restart=Never --image=busybox --dry-run -o yaml --command -- env > try2.yml
+k run busybox --restart=Never --image=busybox --dry-run -o yaml --command -- env
+k run busybox --restart=Never --image=busybox --command -- env -o yaml --dry-run
+k run busybox --restart=Never --image=busybox --command='env' -o yaml --dry-run
+k run nginx --restart=Never --image=nginx -o yaml --dry-run > try1.yml
+k run nginx --restart=Never --image=nginx -o yaml --dry-run
+k get all -n mynamespace
+k run nginx --restart=Never --image=nginx -n mynamespace
+k delete deploy nginx -n mynamespace
+k get all -n mynamespace -n mynamespace
+k delete deploy nginx
+k run nginx --image=nginx --namespace=mynamespace
+k create namespace mynamespace
+k delete svc nginx
+vi ingress-np.yml
+k create -f ingress-np.yml
+k create np -h
+k run nginx --image=nginx --port=80 --expose --replicas=2
+k delete deploy foo
+k delete svc foo
+k get ep foo
+k get ep
+k get endpoints
+wget 10.98.203.247:6262/
+k describe svc foo
+wget 10.98.203.247:6262
+wget -O- 192.168.64.9:6262
+wget -O- http://127.0.0.1:6262
+wget -O- http://192.168.64.9:6262
+wget -O-http://192.168.64.9:6262
+wget http://192.168.64.9:6262
+minikube ip
+k get deploy
+k get svc
+wget http://10.98.203.247:6262
+wget http://10.104.71.160:6262
+k expose deployment foo --port=6262 --target-port=8080
+wget http://10.104.71.160:6262/
+k get svc -w
+k expose deployment foo --port=6262
+kubectl run foo --image=dgkanatsios/simpleapp --labels=app=foo --port=8080 --replicas=3
+k version
 
 ```
