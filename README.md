@@ -527,3 +527,150 @@ k get pod
  1224  k get po --show-labels
  1225  k delete cj busybox
  1226  k delete cj busybox2
+ 
+ 1008  k create configmap config --from-literal=foo=lala --from-literal=foo2=lolo
+ 1009  k get cm
+ 1010  k get cm -o wide
+ 1011  k get all
+ 1012  k describe cm config
+ 1013  k get cm config
+ 1014  k get cm config -o yaml
+ 1015  k get cm config -o yaml --export
+ 1016  c
+ 1017  k create configmap -h
+ 1018  c
+ 1019  echo -e "foo3=lili\nfoo4=lele" > config.txt
+ 1020  k create configmap config-file --from-file=./config.txt
+ 1021  k describe cm config-file
+ 1022  k get cm config-file -o yaml
+ 1023  k get cm config-file -o yaml --export
+ 1024  c
+ 1025  echo -e "var1=val1\n# this is a comment\n\nvar2=val2\n#anothercomment" > config.env
+ 1026  k create cm -h
+ 1027  c
+ 1028  k create cm config-env-file --from-env-file=./config.env
+ 1029  k get cm config-env-file
+ 1030  k get cm config-env-file -o yaml
+ 1031  k get cm config-env-file -o yaml --export
+ 1032  echo -e "var3=val3\nvar4=val4" > config4.txt
+ 1033  k create cm config4 --from-file ./config4.txt
+ 1034  k get cm config4 -o yaml --export
+ 1035  c
+ 1036  k get cm config4 -o yaml --export
+ 1037  k get cm config4 -o yaml --export > config-map-key.yml
+ 1038  vi config
+ 1039  vi config-map-key.yml
+ 1040  k explain configmap.spec
+ 1041  k explain configmap
+ 1042  k explain configmap.metadata
+ 1043  k explain configmap --recursive | grep key
+ 1044  k explain configmap --recursive | grep generator
+ 1045  k explain configmap --recursive | grep -i generator
+ 1046  c
+ 1047  k create cm config5 --from-file=special=./config4.txt -o yaml --dry-run
+ 1048  k create cm options --from-literal=var5=val5
+ 1049  k describe cm options
+ 1050  k run nginx --image=nginx --restart=Never -h
+ 1051  c
+ 1052  k run nginx --image=nginx --restart=Never --dry-run -o yaml > config-pod.yml
+ 1053  vi config
+ 1054  vi config-pod.yml
+ 1055  k create -f config-pod.yml
+ 1056  vi config-pod.yml
+ 1057  k create -f config-pod.yml
+ 1058  k describe po nginx
+ 1059  k exec nginx -- env
+ 1060  k create configmap env:
+ 1061  c
+ 1062  k create configmap anotherone --from-literal=var6=val6 --from-literal=var7=val7
+ 1063  k run nginx2 --image=nginx --restart=Never --dry-run -o yaml > pod-config2.yml
+ 1064  vi pod-config2.yml
+ 1065  k create -f pod-config2.yml
+ 1066  k describe po nginx2
+ 1067  k exec nginx2 -- env
+ 1068  k create cm cmvolume --from-literal var8=val8 var9=val9
+ 1069  k create cm cmvolume --from-literal var8=val8 --from-literal var9=val9
+ 1070  k run nginx3 --image=nginx --restart=Never --dry-run -o yaml -- /bin/sh 'ls /etc/lala'
+ 1071  k run nginx3 --image=nginx --restart=Never --dry-run -o yaml -- /bin/sh 'ls /etc/lala' > nginx3.yml
+ 1072  vi nginx3.yml
+ 1073  k create -f nginx3.yml
+ 1074  k logs nginx3
+ 1075  k describe nginx3
+ 1076  k describe po nginx3
+ 1077  k logs nginx3
+ 1078  k exec nginx3 -- ls /etc/lala
+ 1079  vi nginx3.yml
+ 1080  k delete po nginx3
+ 1081  k create -f nginx3.yml
+ 1082  vi nginx3.yml
+ 1083  k create -f nginx3.yml
+ 1084  vi nginx3.yml
+ 1085  k create -f nginx3.yml
+ 1086  vi nginx3.yml
+ 1087  k create -f nginx3.yml
+ 1088  vi nginx3.yml
+ 1089  c
+ 1090  k run nginx -h
+ 1091  k run nginx -h | grep UID
+ 1092  k run nginx -h | grep -i UID
+ 1093  k run nginx --restart=Never --image=nginx --dry-run -o yaml
+ 1094  k run nginx --=h
+ 1095  k run nginx --restart=Never --requests cpu=100m,memory=256Mi --limits cpu=200m,memory=512Mi --dry-run -o yaml
+ 1096  k run nginx --restart=Never --requests cpu=100m,memory=256Mi --limits cpu=200m,memory=512Mi --image=nginx --dry-run -o yaml
+ 1097  k run nginx --restart=Never --requests cpu=100m,memory=256Mi --limits cpu=200m,memory=512Mi --image=nginx
+ 1098  k run nginx7 --restart=Never --requests cpu=100m,memory=256Mi --limits cpu=200m,memory=512Mi --image=nginx
+ 1099  k describe nginx7
+ 1100  k describe po nginx7
+ 1101  c
+ 1102  k get all
+ 1103  k delete po nginx nginx2 nginx7
+ 1104  c
+ 1105  k create secret -h
+ 1106  k create secret generic -j
+ 1107  k create secret generic --from-literal password=mypass
+ 1108  k create secret generic --from-literal=password=mypass
+ 1109  k create secret generic --from-literal password=mypass
+ 1110  k create secret generic mysecret --from-literal password=mypass
+ 1111  k get secret
+ 1112  k describe secret mysecret
+ 1113  echo admin > username
+ 1114  k create secret generic mysecret2 -h
+ 1115  k create secret generic mysecret2 --from-file ./username
+ 1116  k describe secret mysecret2
+ 1117  k get secret mysecret2
+ 1118  k get secret mysecret2 -o yaml
+ 1119  k get secret mysecret2 -o yaml --export
+ 1120  k get secret mysecret2 -o yaml --export | cut -f :
+ 1121  cut help
+ 1122  cut --help
+ 1123  k get secret mysecret2 -o yaml --export | grep username| cut -f 2
+ 1124  k get secret mysecret2 -o yaml --export | grep username| cut -f 2 ':'
+ 1125  k get secret mysecret2 -o yaml --export | grep username| cut ':' -f 2
+ 1126  k get secret mysecret2 -o yaml --export | grep username| cut  -f 2 -d ':'
+ 1127  k get secret mysecret2 -o yaml --export | grep username| cut -f 2 -d ':' | cut -d ' '
+ 1128  k get secret mysecret2 -o yaml --export | grep username| cut -f 2 -d ':' | cut -d ' ' -f 2
+ 1129  k get secret mysecret2 -o yaml --export | grep username| cut -f 2 -d ':' | cut -d ' ' -f 2 | base64
+ 1130  k get secret mysecret2 -o yaml --export | grep username| cut -f 2 -d ':' | cut -d ' ' -f 2 | base64 -d
+ 1131  kubectl get secret mysecret2 -o jsonpath='{.data.username}{"\n"}'
+ 1132  vi pod-secret.yml
+ 1133  k create -f pod-secret.yml
+ 1134  k exec secret-test-pod -it -- /bin/bash
+ 1135  k get po
+ 1136  k delete po secret-test-po
+ 1137  k delete po secret-test-pod
+ 1138  vi pod-secret.yml
+ 1139  k create -f pod-se
+ 1140  k create -f pod-secret.yml
+ 1141  k describe po secret-test-pod
+ 1142  k get po
+ 1143  k exec secret-text-po -it -- /bin.bash
+ 1144  k exec secret-text-pod -it -- /bin/bash
+ 1145  k exec secret-test-pod -it -- /bin/bash
+ 1146  c
+ 1147  k get sa --all-namespaces
+ 1149  k create sa myuser
+ 1150  k describe sa myuser
+ 1151  k run nginx --image=nginx --restart=Never --serviceaccount
+ 1152  k run nginx --image=nginx --restart=Never --serviceaccount=myuser --dry-run -o yaml
+ 1153  k run nginx --image=nginx --restart=Never --serviceaccount=myuser
+ 1154  k describe po nginx | grep service
