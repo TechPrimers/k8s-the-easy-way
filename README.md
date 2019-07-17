@@ -307,3 +307,223 @@ k get pod
 ## References
 - [kubectl cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 
+
+## Scratch Pad
+ 1004  k run nginx1 --image=nginx --restart=Never -l app=v1
+ 1005  k run nginx2 --image=nginx --restart=Never -l app=v1
+ 1006  k run nginx3 --image=nginx --restart=Never -l app=v1
+ 1007  k get po
+ 1008  k get po -o wide
+ 1009  k get po --labels
+ 1010  k get po --show-labels
+ 1011  k get po --label-columns
+ 1012  k get po --label-column
+ 1013  k get po --label-columns=app
+ 1014  k edit label
+ 1015  k edit -h
+ 1016  k edit po nginx2
+ 1017  k get po --show-labels
+ 1018  k label po -h
+ 1019  history
+ 1020  k label po nginx2 app=v2 --override
+ 1021  k label po nginx2 app=v2 --overwrite
+ 1024  k get po --label-columns=app
+ 1025  k get po -L app
+ 1026  k get po -L app=v2
+ 1027  k get po -h
+ 1028  k get po -l app=v2
+ 1029  k get po -l 'app in (v1, v2)'
+ 1030  k get po -l 'app in (v2)'
+ 1031  c
+ 1032  k label po -h
+ 1033  k label pods app-
+ 1034  k label pods app- --all
+ 1035  k get po
+ 1036  k get po --show-labels
+ 1037  kubectl label po -lapp app-
+ 1038  kubectl label po nginx{1..3} app-
+ 1039  kubectl label po nginx1 nginx2 nginx3 app-
+ 1040  c
+ 1041  k run -h
+ 1042  k run -h | grep label
+ 1043  k get no -h
+ 1044  k get no -h | grep label
+ 1045  k get no --show-labels
+ 1046  k run nginx --image=nginx --restart=Never --field-selector accelerator=nvidia-tesla-p100
+ 1047  k explain po.spec | grep node
+ 1048  k run nginx --image=nginx --restart=Never --dry-run -o yaml > pod-selector.yml
+ 1049  vi pod-selector.yml
+ 1050  k create -f pod-selector.yml
+ 1051  k get po -w
+ 1052  k annotate -h
+ 1053  k annotate pods nginx1 nginx2 nginx3 description='mydescription'
+ 1054  k describe pods nginx1
+ 1056  k describe po nginx1 | grep -i 'annotations'
+ 1057  k describe po nginx1 -o jsonpath='{.metadata.Annotations}'
+ 1058  k describe po nginx1 -o jsonpath='{.metadata.annotations}'
+ 1059  k annotate -h
+ 1060  k annotate po nginx1 nginx2 nginx3 description-
+ 1061  k describe po nginx1 | grep -i 'annotations'
+ 1062  k delete po nginx nginx1 nginx2 nginx3
+ 1063  k run nginx --image=nginx:1.7.8 --replicas=2 --port=80 --dry-run -o yaml
+ 1064  k run nginx --image=nginx:1.7.8 --replicas=2 --port=80 --dry-run -o yaml > deployment.yml
+ 1065  k create -f deployment.yml
+ 1066  k get de -w
+ 1067  k get do -w
+ 1068  k get deploy -w
+ 1069  k get all
+ 1070  kubectl create deployment nginx  --image=nginx:1.7.8  --dry-run -o yaml
+ 1071  k describe deploy nginx -o yaml
+ 1072  k get deploy nginx -o yaml
+ 1073  k get deploy nginx -o yaml --export
+ 1074  c
+ 1075  k get rs nginx
+ 1076  k get all
+ 1077  k get rs nginx-587746989d -o yaml
+ 1078  k get rs nginx-587746989d -o yaml  --export
+ 1079  k get rs -l run=nginx
+ 1080  k get pods
+ 1081  k get po nginx-587746989d-4rbmb -o yaml --expor
+ 1082  k get po nginx-587746989d-4rbmb -o yaml --export
+ 1083  c
+ 1084  k rollout deployment nginx
+ 1085  k rollout status deployment nginx
+ 1086  k rollout -h
+ 1087  k set image -h
+ 1088  k set image deploy nginx nginx=nginx:1.7.9
+ 1089  k describe deploy nginx
+ 1090  k rollout history deploy nginx
+ 1091  k get rs nginx
+ 1092  k get rs
+ 1093  k get po
+ 1094  k get deploy
+ 1095  k rollout undo deploy nginx
+ 1096  k get po -w
+ 1097  k describe deploy nginx
+ 1098  k set image deploy nginx nginx=nginx:1.91
+ 1099  k get all
+ 1100  k get po -w
+ 1101  k rollout status deploy nginx
+ 1102  k history deploy nginx
+ 1103  k rollout history deploy nginx
+ 1104  k rollout -h
+ 1105  k rollout deploy -h
+ 1106  k rollout undo -h
+ 1107  k rollout undo --to-revision=2
+ 1108  k rollout undo deploy nginx --to-revision=2
+ 1109  k get po -w
+ 1110  k rollout status deploy nginx
+ 1111  k describe deploy nginx| grep -i 'Image'
+ 1112  k rollout -h
+ 1113  k rollout history deploy nginx -h
+ 1114  k rollout history deploy nginx --revision=3
+ 1115  k scale deploy nginx -h
+ 1116  k scale deploy nginx --replicas=5
+ 1117  k get po -w
+ 1118  k scale deploy -h
+ 1119  k autoscale
+ 1120  k autoscale -h
+ 1121  c
+ 1122  history
+ 1123  c
+ 1124  k autoscale -h
+ 1125  k autoscale deploy nginx --min=5 --max=10 --cpu-percent=80
+ 1126  k describe deploy nginx
+ 1127  k describe rs
+ 1128  k rollout pause deploy nginx
+ 1129  k set image deploy nginx nginx=nginx:1.9.1
+ 1130  k rollout status deploy nginx
+ 1131  k rollout history deploy nginx
+ 1132  k rollout resume deploy nginx
+ 1133  k rollout status deploy nginx
+ 1134  k get po
+ 1135  k rollout history deploy nginx
+ 1136  k rollout history deploy nginx --revision=6
+ 1137  k get all
+ 1138  k delete deploy nginx
+ 1139  k getl all
+ 1140  k get all
+ 1141  k delete hps -h
+ 1142  k get hpa
+ 1143  k delete hpa nginx
+ 1144  k get all
+ 1147  k run perl -h
+ 1148  k run perl --restart=OnFailure -c "perl -Mbignum=bpi -wle 'print bpi(2000)'"
+ 1149  k run perl --restart=OnFailure --image=perl --command "perl -Mbignum=bpi -wle 'print bpi(2000)'" --dry-run -o yaml
+ 1150  k run perl --restart=OnFailure --image=perl --command "perl -Mbignum=bpi -wle 'print bpi(2000)'"
+ 1151  k get all
+ 1152  k rollout batch perl
+ 1153  k rollout -h
+ 1154  k get all
+ 1155  k logs perl
+ 1156  k logs perl-62hgp
+ 1157  k get all
+ 1158  k delete job perl
+ 1159  k get all
+ 1160  k create job perl --image=perl -- "perl -Mbignum=bpi -wle 'print bpi(2000)'"
+ 1161  k get all
+ 1162  k get po
+ 1163  k get po -w
+ 1164  k delete job perl
+ 1165  k create job pi --image=perl -- "perl -Mbignum=bpi -wle 'print bpi(2000)'"
+ 1166  k get po -w
+ 1167  k get all
+ 1168  k delete job pi
+ 1169  k create job pi --image=perl -- perl -Mbignum=bpi -wle 'print bpi(2000)'
+ 1170  k get po -w
+ 1171  k logs pi-whrqr
+ 1172  k get all
+ 1173  k delete job pi
+ 1174  k get all
+ 1175  c
+ 1176  k create job bb --image=busybox -- echo hello;sleep 30;echo world
+ 1177  k get po -w
+ 1178  k logs bb-6v4cj
+ 1179  k logs bb-6v4cj -f
+ 1180  k get job
+ 1181  k get all
+ 1182  k job
+ 1183  k get job -o wide
+ 1184  k describe job bb
+ 1185  k logs job/bb
+ 1186  k get jobs
+ 1187  k delete job bb
+ 1188  k create job -h
+ 1189  k explain job.spec
+ 1190  k create job bb image=busybox --dry-run -o yaml
+ 1191  k create job bb --image=busybox --dry-run -o yaml
+ 1192  k create job bb --image=busybox --dry-run -o yaml > job.yaml
+ 1193  k explain job.spec
+ 1194  vi job.yaml
+ 1195  k create -f job.yaml
+ 1196  k get all
+ 1197  vi job.yaml
+ 1198  k apply -f job.yaml
+ 1199  k get all
+ 1200  k delete job bb
+ 1201  k create -f job.yaml
+ 1202  k get all
+ 1203  k get job
+ 1204  k create job -h
+ 1205  k create cronjob -h
+ 1206  k create job -h
+ 1207  k run busybox --restart=OnFailure -h
+ 1208  k run busybox --restart=OnFailure --schedule='*/1 * * * *' --image=busybox -- /bin/sh -c 'date; echo Hello from the Kubernetes cluster'
+ 1209  k get job
+ 1210  k get all
+ 1211  k get cronjob
+ 1212  k logs cronjob/busybox
+ 1213  k get cronjob
+ 1214  k run busybox2 --restart=OnFailure --schedule="*/1 * * * *" --image=busybox -- /bin/sh -c 'date; echo Hello from the Kubernetes cluster'
+ 1215  k get cronjob
+ 1216  k logs cronjob/busybox
+ 1217  k get all
+ 1218  k logs cronjob/busybox
+ 1219  k logs cronjob/busybox2
+ 1220  k logs cronjob/busybox -f
+ 1221  k get jobs -w
+ 1222  k logs pod/busybox2-1563334860-5dnl8
+ 1223  k logs pod/busybox-1563334800-5jts2
+ 1224  k get po --show-labels
+ 1225  k delete cj busybox
+ 1226  k delete cj busybox2
