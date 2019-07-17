@@ -309,6 +309,7 @@ k get pod
 
 
 ## Scratch Pad
+```
  1004  k run nginx1 --image=nginx --restart=Never -l app=v1
  1005  k run nginx2 --image=nginx --restart=Never -l app=v1
  1006  k run nginx3 --image=nginx --restart=Never -l app=v1
@@ -674,3 +675,6 @@ k get pod
  1152  k run nginx --image=nginx --restart=Never --serviceaccount=myuser --dry-run -o yaml
  1153  k run nginx --image=nginx --restart=Never --serviceaccount=myuser
  1154  k describe po nginx | grep service
+
+
+```
